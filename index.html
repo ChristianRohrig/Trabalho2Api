@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="main-nav">
+            <div class="nav-section">   
+                <div class="logo">
+                    <a href="/"> <img src="imagens/mini_logo.png"> </a>
+                </div>
+                <div class="nav-links" id="navLinks">
+                    <a class="nav-link" href="login.html">Login</a>
+                    <span id="nomeUsuario" class="nav-link"></span>
+                    <a class="nav-link" href="#" id="logoutButton" style="display: none;">Deslogar</a>
+                    <a class="nav-link" href="#" id="email" style="display: none;"></a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="options">
+        <div class="options-container">
+            <a class="publicar" href="postar.html">Quero divulgar um animal</a>
+        </div>
+        <div class="intro">
+            <h2>Novos peludos por aqui</h2> 
+            <a>Nosso site está cheio de doguinhos e gatinhos esperando por uma família.</a>
+            <a>Vem ver!</a>
+        </div>
+        <div class="grid-pet">
+        </div>
+    </main>
+    <footer class="direitos">
+        <a>Direitos Reservados</a>
+    </footer>
+
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+            // Obtém o ID do usuário logado a partir dos cookies
+            const idUsuarioLogado = getCookie('idUsuario');
+            const nomeUsuarioElement = document.getElementById('nomeUsuario');
+            const logoutButton = document.getElementById('logoutButton');
+            const navLinks = document.getElementById('navLinks');
+            const loginLink = document.querySelector('.nav-link[href="login.html"]');
+
+            const nomeUsuario = getCookie('nomeUsuario');
+
+            // Verifica se o nome do usuário está presente nos cookies    
+            if (nomeUsuario) {
+                // Decodifica o nome do usuário
+                const nomeUsuarioDecodificado = decodeURIComponent(nomeUsuario);
+
+                nomeUsuarioElement.innerText = nomeUsuarioDecodificado;
+
+                logoutButton.style.display = 'inline-block';
+                if (loginLink) {
+                navLinks.removeChild(loginLink);
+                }
+                // Adiciona um evento de clique ao botão de logout
+                logoutButton.addEventListener('click', function () {
+                    document.cookie = 'nomeUsuario=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    window.location.href = 'login.html';
+                });
+            } else {
+                nomeUsuarioElement.style.display = 'none';
+                logoutButton.style.display = 'none';
+                
+            }
+
+            // Faz uma requisição para obter informações dos animais
+            fetch('/animais')
+                .then(response => response.json())
+                .then(data => {
+                    const gridPet = document.querySelector('.grid-pet');
+
+                    data.forEach(animal => {
+                        const animalDiv = document.createElement('div');
+                        animalDiv.classList.add('animal');
+
+                        const imageSrc = animal.imagem;
+                        const animalName = animal.nome;
+
+                        animalDiv.innerHTML = `
+                            <p>
+                                <img alt="" src="${imageSrc}">
+                            </p>
+                            <h1 class="not">
+                                <a href="/animal/${animal.id}">${animalName}</a>
+                                <span id="deleteOption-${animal.id}" style="display: none;">
+                                    <button onclick="editarAnimal(${animal.id})">Editar</button>
+                                    <button onclick="deletarAnimal(${animal.id})">Deletar</button>
+                                </span>
+                            </h1>
+                        `;
+
+                        gridPet.appendChild(animalDiv);
+
+                        // Exibe as opções de edição/exclusão apenas para o dono do animal
+                        if (idUsuarioLogado === animal.dono_id.toString()) {
+                            document.getElementById(`deleteOption-${animal.id}`).style.display = 'inline-block';
+                        }
+                    });
+                })
+                .catch(error => console.error('Erro ao obter informações dos animais:', error));
+        });
+
+        // Função para obter o valor de um cookie
+        function getCookie(nome) {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(nome + '=')) {
+                    return cookie.substring(nome.length + 1);
+                }
+            }
+            return null;
+        }
+
+        // Função para deletar um animal
+        function deletarAnimal(animalId) {
+            // Fazer uma solicitação AJAX para excluir o animal
+            fetch(`/deletar-animal/${animalId}`, {
+                method: 'DELETE',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    window.location.reload();
+                })
+                .catch(error => console.error('Erro ao excluir o animal:', error));
+        }
+
+        // Função para redirecionar o usuário para a página de edição de um animal
+        function editarAnimal(animalId) {
+        window.location.href = `/edicao.html?animalId=${animalId}`;
+        }
+    </script>
+</body>
+</html>

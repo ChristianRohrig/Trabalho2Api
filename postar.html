@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postar Animal para Adoção</title>
+    <link rel="stylesheet" type="text/css" href="css/postar.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="main-nav">
+            <div class="nav-section">   
+                <div class="logo">
+                    <a href="/"> <img src="imagens/mini_logo.png"> </a>
+                </div>
+                <div class="nav-links">
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="postar">
+        <h2>Postar Animal para Adoção</h2>
+        <form id="formulario" action="/postar" method="post" enctype="multipart/form-data">
+            <label for="nome">Nome do Animal:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" rows="4" required></textarea>
+
+            <label for="imagem">Foto do Animal:</label>
+            <input type="file" id="imagem" name="imagem" accept="image/*" required>
+
+            <label for="contato">Meio de Contato:</label>
+            <input type="text" id="contato" name="contato" required>
+
+            <input type="hidden" id="dono_id" name="dono_id" value="">
+            <button type="submit">Publicar</button>
+
+        </form>
+    </main>
+    <footer class="direitos">
+        <a>Direitos Reservados</a>
+    </footer>
+<script src="postar.js"></script>
+</body>
+</html>

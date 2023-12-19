@@ -1,0 +1,38 @@
+npm install body-parser@^1.20.2 cookie-parser@^1.4.6 express@^4.18.2 multer@^1.4.5-lts.1 mysql@^2.18.1 path@^0.12.7
+
+
+CREATE DATABASE IF NOT EXISTS christianbd;
+
+USE christianbd;
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`) VALUES
+(1, 'christian rohrig', 'usuario1@gmail.com', '123'),
+(17, 'Felpe Silva', 'usuario2@gmail.com', '123'),
+(18, 'Maria Eduarda', 'usuario3@gmail.com', '123');
+
+CREATE TABLE `animais` (
+  `id` int(11) NOT NULL,
+  `dono_id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `descricao` varchar(1000) NOT NULL,
+  `contato` varchar(200) NOT NULL,
+  `imagem` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `dono_id` (`dono_id`),
+  CONSTRAINT `animais_ibfk_1` FOREIGN KEY (`dono_id`) REFERENCES `usuarios` (`id`)
+);
+
+INSERT INTO `animais` (`id`, `dono_id`, `nome`, `descricao`, `contato`, `imagem`) VALUES
+(31, 18, 'Tobby', 'Gosta de carinho infinito, descansar nas pernas dos humanos, proteger o seu lar, passear para fazer suas necessidades, receber muito amor e carinho. Não demanda muita atenção, gosta apenas de estar em companhia de alguém.', '(54) 2268-4654', 'imagens/animal3.jpg'),
+(32, 17, 'Mia', 'É muito esperto e brincalhão, e depois que confia no humano, muito carinhoso também. Se dá bem com outros gatos.', '(53) 3633-6330', 'imagens/gato.jpg');
+
+ALTER TABLE `animais` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+ALTER TABLE `usuarios` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;

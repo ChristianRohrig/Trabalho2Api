@@ -1,0 +1,41 @@
+<!-- login.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="main-nav">
+            <div class="nav-section">   
+                <div class="logo">
+                    <a href="index.html"> <img src="imagens/mini_logo.png"> </a>
+                </div>
+                <div class="nav-links">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm" action="/login" method="post">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
+            
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <button type="submit" id="loginButton">Entrar</button>
+        </form>
+        <a href="/auth/google" class="google-login">Entrar com o Google</a>
+        <p>Não tem uma conta? <a href="/registro">Criar uma conta</a></p>
+    </main>
+
+    <footer class="direitos">
+        <a>Direitos Reservados</a>
+    </footer>    
+</body>
+</html>

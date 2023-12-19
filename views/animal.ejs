@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Animal</title>
+    <link rel="stylesheet" type="text/css" href="/css/animal.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="main-nav">
+            <div class="nav-section">   
+                <div class="logo">
+                    <a href="/"> <img src="/imagens/mini_logo.png"> </a>
+                </div>
+                <div class="nav-links" id="navLinks">
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="main">
+        <div class="animal">
+            <h1 class="nome"><%= animal.nome %></h1>
+            <img class="foto" src="/<%= animal.imagem %>" alt="Imagem do animal">
+        </div>
+        <p>Descrição: <%= animal.descricao %></p>
+        <p>Contato: <%= animal.contato %></p>
+    </main>
+    <footer class="direitos">
+        <a>Direitos Reservados</a>
+    </footer>
+    
+</body>
+</html>

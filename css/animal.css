@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background-color: #333;
+    color: #fff;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-section {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #fff;
+    margin: 0 15px;
+}
+
+.logo img {
+    width: 80px; 
+    height: auto;
+}
+
+.main{
+    display: inline;
+}
+.direitos {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.nome{
+    text-align: center;
+}
+.foto{
+    width: 400px;
+}
